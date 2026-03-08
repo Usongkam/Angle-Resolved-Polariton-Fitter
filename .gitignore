@@ -26,3 +26,5 @@ clean_full_range.png
 build/
 dist/
 
+build_release.ps1
+

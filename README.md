@@ -166,16 +166,10 @@ pip install pyinstaller
 pyinstaller AngleResolvedPolaritonFitter.spec
 ```
 
-### 使用脚本打包
+### 直接命令打包 onefile
 
 ```powershell
-./build_release.ps1
-```
-
-### 可选：打包 onefile
-
-```powershell
-./build_release.ps1 -OneFile
+pyinstaller --noconfirm --clean --onefile --windowed --name AngleResolvedPolaritonFitter --paths apps/V4 --hidden-import PyQt6.sip --hidden-import matplotlib.backends.backend_qtagg --collect-data matplotlib --collect-submodules matplotlib.backends apps/V4/app.py
 ```
 
 生成结果默认在 `dist/` 目录下。
@@ -344,16 +338,11 @@ pip install pyinstaller
 pyinstaller AngleResolvedPolaritonFitter.spec
 ```
 
-### Build with the helper script
+### Build onefile directly from the command line
 
 ```powershell
-./build_release.ps1
-```
-
-### Optional: build onefile
-
-```powershell
-./build_release.ps1 -OneFile
+pyinstaller --noconfirm --clean --onefile --windowed --name AngleResolvedPolaritonFitter --paths apps/V4 --hidden-import PyQt6.sip --hidden-import matplotlib.backends.backend_qtagg --collect-data matplotlib --collect-submodules matplotlib.backends apps/V4/app.py
 ```
 
 Build artifacts are written to `dist/`.
+
