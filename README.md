@@ -27,6 +27,29 @@
 - 诊断输出，包括 RMSE、weighted RMSE、LP/UP RMSE、seed source
 - 导出 report、fit CSV 和工作区图像
 
+## 中文数据格式要求
+
+程序读取的是二维文本矩阵（支持 `.txt`、`.dat`、`.csv` 等纯文本表格），并会自动判断矩阵朝向。建议输入文件满足下面的结构：
+
+- 左上角单元可以为空、为 `0`，或为任意占位值；程序不会把它当成强度数据使用。
+- 第一行（除左上角外）应为波长轴，单位应为 `nm`。程序会自动换算成能量。
+- 第一列（除左上角外）应为角度轴或相机像素轴。即使这里暂时不是物理角度，也可以先导入，再通过 `NA` 和 `k=0` 设置完成映射。
+- 其余区域应为二维强度矩阵，行列与坐标轴一一对应。
+- 文件中不应包含额外的文字表头、单位说明行或多余空列，否则容易破坏矩阵识别。
+- 数据尺寸至少应大于 `3 x 3`。
+
+如果你的文件是“第一列是波长、第一行是角度”的转置形式，程序也会自动识别并转置。
+
+推荐格式示意：
+
+```text
+      angle1   angle2   angle3   ...
+wl1   I11      I12      I13      ...
+wl2   I21      I22      I23      ...
+wl3   I31      I32      I33      ...
+...
+```
+
 ## 中文快速流程
 
 典型使用顺序为：`Load -> Apply -> Start -> Trace -> Fit -> Export`
@@ -198,6 +221,29 @@ This tool is intended for tracing and fitting cavity, LP, and UP branches in ang
 - `Cavity only`, `LP only`, and `Coupled (LP+UP)` fitting modes
 - diagnostics including RMSE, weighted RMSE, LP/UP RMSE, and seed source
 - export of reports, fit CSV data, and workspace images
+
+## English Data Format Requirements
+
+The program expects a 2D plain-text matrix file (`.txt`, `.dat`, `.csv`, or similar) and automatically detects its orientation. The recommended structure is:
+
+- The top-left cell may be empty, `0`, or any placeholder value; it is not treated as intensity data.
+- The first row (excluding the top-left cell) should contain the wavelength axis in `nm`. The program converts wavelength to energy automatically.
+- The first column (excluding the top-left cell) should contain the angle axis or camera-pixel axis. Even if it is not yet in physical angle units, you can still import it and finish the mapping with `NA` and `k=0` settings.
+- The remaining block should be the 2D intensity matrix, aligned with those two axes.
+- Avoid extra text headers, unit-description rows, or stray empty columns, because they can break matrix parsing.
+- The dataset must be larger than `3 x 3`.
+
+If your file is transposed, with wavelength in the first column and angle in the first row, the program will detect and transpose it automatically.
+
+Recommended layout:
+
+```text
+      angle1   angle2   angle3   ...
+wl1   I11      I12      I13      ...
+wl2   I21      I22      I23      ...
+wl3   I31      I32      I33      ...
+...
+```
 
 ## English Workflow
 
