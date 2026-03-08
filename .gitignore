@@ -22,3 +22,7 @@ points.json
 workspace.png
 clean_2d.png
 clean_full_range.png
+
+build/
+dist/
+
