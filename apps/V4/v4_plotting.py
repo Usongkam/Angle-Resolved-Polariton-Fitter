@@ -1,9 +1,16 @@
-import numpy as np
+﻿import numpy as np
 
 
 def draw_heatmap(ax, x, y, z):
-    vmin = float(np.nanpercentile(z, 2))
-    vmax = float(np.nanpercentile(z, 98))
+    finite = np.asarray(z, dtype=np.float64)
+    finite = finite[np.isfinite(finite)]
+    vmin = 0.0
+    if finite.size:
+        vmax = float(np.max(finite))
+        if vmax <= vmin:
+            vmax = vmin + 1.0
+    else:
+        vmax = 1.0
     ax.pcolormesh(x, y, z, shading="auto", cmap="gray", vmin=vmin, vmax=vmax)
 
 
@@ -137,3 +144,4 @@ def draw_fit_overlays(plot, fitter, fit_curves):
         plot.full_clean_ax.legend(loc="best", fontsize="small")
     plot.clean_canvas.draw_idle()
     plot.full_clean_canvas.draw_idle()
+
